@@ -1637,7 +1637,7 @@ CREATE TABLE `mybb_users` (
 
 LOCK TABLES `mybb_users` WRITE;
 /*!40000 ALTER TABLE `mybb_users` DISABLE KEYS */;
-INSERT INTO `mybb_users` VALUES (1,'admin','cb883bc225650cd596f905939e75f299','nCQsSE07','NBj6HKVZs827jvuZGuMo7Q9V5fmHNrA9VlcKnUG5RNBiWb7G20','hello@rohit.io',0,0,'','','0',4,'',0,'',1448377068,1448377068,1448377068,0,'','','','','','','','all','',1,0,0,0,1,0,1,1,1,0,'',1,1,1,1,1,1,0,0,0,'','','0',0,0,'','',0,0,0,'','','','',0,0,0,'À¨!','','',0,1,0,0,0,0,0,0,0,0,0,0,0,1,'',0);
+INSERT INTO `mybb_users` VALUES (1,'admin','cb883bc225650cd596f905939e75f299','nCQsSE07','NBj6HKVZs827jvuZGuMo7Q9V5fmHNrA9VlcKnUG5RNBiWb7G20','admin@mybb.com',0,0,'','','0',4,'',0,'',1448377068,1448377068,1448377068,0,'','','','','','','','all','',1,0,0,0,1,0,1,1,1,0,'',1,1,1,1,1,1,0,0,0,'','','0',0,0,'','',0,0,0,'','','','',0,0,0,'ï¿½ï¿½!','','',0,1,0,0,0,0,0,0,0,0,0,0,0,1,'',0);
 /*!40000 ALTER TABLE `mybb_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -1721,4 +1721,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
