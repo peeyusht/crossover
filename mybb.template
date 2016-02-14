@@ -57,9 +57,9 @@
       "Default" : "5"
     },
     "OperatorEmail" : {
-      "Description" : "Email address to notify if there are any operational issues",
+      "Description" : "Email address to notify if there are any issues",
       "Type" : "String",
-      "Default" : "hello@rohit.io"
+      "Default" : "admin@mybb.com"
     },
     "SSHLocation" : {
       "Description" : "SSH whitelisting CIDR block (default can be accessed from anywhere)",
@@ -129,10 +129,10 @@
       "ap-northeast-1" : { "RDSMultiAZ" : "true" }
     },
     "SubnetConfig" : {
-      "VPC"     : { "CIDR" : "10.0.0.0/16" },
-      "Public"  : { "CIDR" : "10.0.0.0/24" },
-      "RDS1"  : { "CIDR" : "10.0.10.0/24" },
-      "RDS2"  : { "CIDR" : "10.0.11.0/24" }
+      "VPC"     : { "CIDR" : "192.168.0.0/16" },
+      "Public"  : { "CIDR" : "192.168.0.0/24" },
+      "RDS1"  : { "CIDR" : "192.168.100.0/24" },
+      "RDS2"  : { "CIDR" : "192.168.101.0/24" }
     }
   },
 
@@ -347,9 +347,9 @@
 "                                                                                                                                                            \n",
 "# Configure the MyBB application.. - TODO                                                                                                                   \n",
 "cd /usr/src/                                                                                                                                                \n",
-"git clone https://github.com/rohit01/crossover.git                                                                                                          \n",
+"git clone https://github.com/peeyusht/crossover.git                                                                                                          \n",
 "cd crossover/                                                                                                                                               \n",
-"bash ./install_mybb.sh ", { "Ref" : "DBName" }, " ", { "Ref" : "MyBbTablePrefix" }, " ", { "Fn::GetAtt" : ["DB", "Endpoint.Address"] }, " ", 
+"bash ./install_mybb.sh ", { "Ref" : "DBName" }, " ", { "Ref" : "MyBbTablePrefix" }, " ", { "Fn::GetAtt" : ["DB", "Endpoint.Address"] }, " ",
 { "Ref" : "DBUser" }," ", { "Ref" : "DBPassword" }, " ", { "Fn::GetAtt" : [ "PublicElasticLoadBalancer", "DNSName" ] }, "                                          \n",
 "rm /var/www/html/index.html                                                                                                                                 \n",
 "cp -r mybb/* /var/www/html/                                                                                                                                 \n",
@@ -379,7 +379,7 @@
             },
 
             "services" : {
-              "sysvinit" : {  
+              "sysvinit" : {
                 "apache2" : {
                   "enabled"       : "true",
                   "ensureRunning" : "true"
@@ -416,13 +416,13 @@
       }
     },
 
-    "DBSecurityGroup" : { 
-      "Type" : "AWS::RDS::DBSecurityGroup", 
+    "DBSecurityGroup" : {
+      "Type" : "AWS::RDS::DBSecurityGroup",
       "Properties" : {
         "GroupDescription" : "Database Access",
         "EC2VpcId" : { "Ref" : "VPC" },
         "DBSecurityGroupIngress" : {
-          "EC2SecurityGroupId" : { "Ref" : "Ec2SecurityGroup" } 
+          "EC2SecurityGroupId" : { "Ref" : "Ec2SecurityGroup" }
         }
       }
     },
@@ -434,18 +434,18 @@
       }
     },
 
-    "DB" : { 
-      "Type" : "AWS::RDS::DBInstance", 
+    "DB" : {
+      "Type" : "AWS::RDS::DBInstance",
       "Properties" : {
         "AllocatedStorage" : { "Ref" : "RDSDBSize" },
         "DBInstanceClass" : { "Ref" : "RDSInstanceType" },
-        "MasterUsername" : { "Ref" : "DBUser" }, 
-        "MasterUserPassword" : { "Ref" : "DBPassword" }, 
+        "MasterUsername" : { "Ref" : "DBUser" },
+        "MasterUserPassword" : { "Ref" : "DBPassword" },
         "DBName" : { "Ref" : "DBName" },
 
         "DBSubnetGroupName" : { "Ref" : "RDSDBSubnetGroup" },
 
-        "DBSecurityGroups" : [ { "Ref" : "DBSecurityGroup" } ], 
+        "DBSecurityGroups" : [ { "Ref" : "DBSecurityGroup" } ],
         "Port" : { "Ref" : "DBPort" },
         "MultiAZ" : { "Fn::FindInMap" : [ "AWSRegionCapabilities", { "Ref" : "AWS::Region" }, "RDSMultiAZ"] },
         "Engine" : "MySQL" ,
